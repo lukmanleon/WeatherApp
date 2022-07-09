@@ -6,13 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/buttonGetCityId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Get city ID"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGetWeatherByCityId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGetWeatherByCityId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WeatherID"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGetWeatherByCityName"
+        app:layout_constraintStart_toEndOf="@+id/buttonGetCityId"
+        app:layout_constraintTop_toTopOf="@+id/buttonGetCityId" />
+
+    <Button
+        android:id="@+id/buttonGetWeatherByCityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weather name"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonGetWeatherByCityId"
+        app:layout_constraintTop_toTopOf="@+id/buttonGetWeatherByCityId" />
+
+    <EditText
+        android:id="@+id/editTextDataInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="City name"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGetCityId" />
+
+    <ListView
+        android:id="@+id/listViewWeatherReports"
+        android:layout_width="409dp"
+        android:layout_height="623dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDataInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
