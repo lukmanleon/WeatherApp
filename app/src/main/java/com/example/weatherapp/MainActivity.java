@@ -45,30 +45,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Instantiate the RequestQueue.
-                String url = "https://weatherstack.com/ws_api.php?ip=46.229.246.201";
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        String country = "nista";
-                        try {
-                            JSONObject myObject = response.getJSONObject("location");
-                            country = myObject.getString("country");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(MainActivity.this, country, Toast.LENGTH_SHORT).show();
+                WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+                String property = "location";
+                weatherDataService.getCityId(property, new WeatherDataService.VolleyResponseListener() {
 
-                    }
-                }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onError(String message) {
                         Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                MySingleton.getInstance(MainActivity.this).addToRequestQueue(request);
+
             }
         });
 
