@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextDataInput;
     ListView listViewWeatherReport;
 
+    WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         listViewWeatherReport = findViewById(R.id.listViewWeatherReports);
 
 
+
+
         btnGetCityId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                WeatherDataService weatherDataService = new WeatherDataService(MainActivity.this);
                 String property = "location";
                 weatherDataService.getCityId(property, new WeatherDataService.VolleyResponseListener() {
 
