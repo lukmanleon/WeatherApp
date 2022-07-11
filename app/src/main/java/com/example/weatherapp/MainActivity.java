@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 String url = "https://weatherstack.com/ws_api.php?ip=46.229.246.201";
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -69,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-                queue.add(request);
+
+                MySingleton.getInstance(MainActivity.this).addToRequestQueue(request);
             }
         });
+
 
         btnGetWeatherByCityId.setOnClickListener(new View.OnClickListener() {
             @Override
