@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -11,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherDataService {
@@ -55,7 +57,34 @@ public class WeatherDataService {
         MySingleton.getInstance(context).addToRequestQueue(request);
     }
 
-//    public List<WeatherReportModel> getCityForecastByID() {
-//        return null;
-//    }
+    public void getCityForecastByID(String propertyName, VolleyResponseListener listener) {
+        String url = BASE_URL;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                WeatherReportModel model = new WeatherReportModel();
+                try {
+                    JSONObject myObject = response.getJSONObject(propertyName);
+                    model.setTemperature(Integer.parseInt(myObject.getString("temperature")));
+                    model.setWind_speed(Integer.parseInt(myObject.getString("wind_speed")));
+                    model.setWind_dir(myObject.getString("wind_dir"));
+                    model.setPressure(Integer.parseInt(myObject.getString("pressure")));
+                    model.setPrecip(Integer.parseInt(myObject.getString("precip")));
+                    model.setHumidity(Integer.parseInt(myObject.getString("humidity")));
+                    listener.onResponse(model.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError("Something wrong");
+            }
+        });
+        MySingleton.getInstance(context).addToRequestQueue(request);
+
+
+    }
 }

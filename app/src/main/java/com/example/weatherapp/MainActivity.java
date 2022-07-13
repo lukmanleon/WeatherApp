@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         listViewWeatherReport = findViewById(R.id.listViewWeatherReports);
 
 
-
-
         btnGetCityId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +69,22 @@ public class MainActivity extends AppCompatActivity {
         btnGetWeatherByCityId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Clicked btnGetWeatherByCityId", Toast.LENGTH_SHORT).show();
+
+                String property = "current";
+                weatherDataService.getCityForecastByID(property, new WeatherDataService.VolleyResponseListener() {
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
             }
         });
 
